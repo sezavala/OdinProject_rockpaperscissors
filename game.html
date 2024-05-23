@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let humanScore = 0;
+      let computerScore = 0;
+
+      function getComputerChoice() {
+        randomInt = Math.floor(Math.random() * 3);
+        return randomInt;
+      }
+
+      function getHumanChoice() {
+        let choice = parseInt(prompt("Enter a number between 0-2"));
+        return choice;
+      }
+
+      function playRound(humanChoice, computerChoice) {
+        let choices = ["Rock", "Paper", "Scissors"];
+        human = choices[humanChoice];
+        computer = choices[computerChoice];
+        final = "";
+
+        if (human === "Rock") {
+          if (computer === "Rock") {
+            final = "Tie.";
+          } else if (computer === "Paper") {
+            final = "Loss.";
+          } else {
+            final = "Win!";
+          }
+        } else if (human === "Paper") {
+          if (computer === "Rock") {
+            final = "Win!";
+          } else if (computer === "Paper") {
+            final = "Tie.";
+          } else {
+            final = "Loss.";
+          }
+        } else if (human === "Scissors") {
+          if (computer === "Rock") {
+            final = "Loss.";
+          } else if (computer === "Paper") {
+            final = "Win!";
+          } else {
+            final = "Tie.";
+          }
+        }
+        return console.log(
+          "Human: " + human + "\nComputer: " + computer + "\n" + final
+        );
+      }
+
+      function playGame() {
+        for (let i = 0; i < 5; i++) {
+          humanChoice = getHumanChoice();
+          computerChoice = getComputerChoice();
+
+          playRound(humanChoice, computerChoice);
+        }
+      }
+
+      playGame();
+    </script>
+  </body>
+</html>
