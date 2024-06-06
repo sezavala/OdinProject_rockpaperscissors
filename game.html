@@ -6,6 +6,16 @@
     <title>Document</title>
   </head>
   <body>
+    <h1>Rock Paper Scissors</h1>
+
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <div class="result"></div>
+
+    <p class="scores">You: 0 AI: 0</p>
+
     <script>
       let humanScore = 0;
       let computerScore = 0;
@@ -15,57 +25,69 @@
         return randomInt;
       }
 
-      function getHumanChoice() {
-        let choice = parseInt(prompt("Enter a number between 0-2"));
-        return choice;
-      }
-
       function playRound(humanChoice, computerChoice) {
         let choices = ["Rock", "Paper", "Scissors"];
         human = choices[humanChoice];
         computer = choices[computerChoice];
-        final = "";
+        const final = document.querySelector(".result");
+        const scores = document.querySelector(".scores");
 
         if (human === "Rock") {
           if (computer === "Rock") {
-            final = "Tie.";
+            final.textContent = "Tie.";
           } else if (computer === "Paper") {
-            final = "Loss.";
+            final.textContent = "Loss.";
+            computerScore++;
           } else {
-            final = "Win!";
+            final.textContent = "Win!";
+            humanScore++;
           }
         } else if (human === "Paper") {
           if (computer === "Rock") {
-            final = "Win!";
+            final.textContent = "Win!";
+            humanScore++;
           } else if (computer === "Paper") {
-            final = "Tie.";
+            final.textContent = "Tie.";
           } else {
-            final = "Loss.";
+            final.textContent = "Loss.";
+            computerScore++;
           }
         } else if (human === "Scissors") {
           if (computer === "Rock") {
-            final = "Loss.";
+            final.textContent = "Loss.";
+            computerScore++;
           } else if (computer === "Paper") {
-            final = "Win!";
+            final.textContent = "Win!";
+            humanScore++;
           } else {
-            final = "Tie.";
+            final.textContent = "Tie.";
           }
         }
-        return console.log(
-          "Human: " + human + "\nComputer: " + computer + "\n" + final
-        );
-      }
-
-      function playGame() {
-        for (let i = 0; i < 5; i++) {
-          humanChoice = getHumanChoice();
-          computerChoice = getComputerChoice();
-
-          playRound(humanChoice, computerChoice);
+        if (computerScore === 5) {
+          alert("Computer Wins");
+          humanScore = 0;
+          computerScore = 0;
+        } else if (humanScore === 5) {
+          alert("You Win!");
+          computerScore = 0;
+          humanScore = 0;
         }
+        scores.textContent = `You: ${humanScore} AI: ${computerScore}`;
       }
 
-      playGame();
+      const rockButton = document.getElementById("rock");
+      const paperButton = document.getElementById("paper");
+      const scissorsButton = document.getElementById("scissors");
+
+      rockButton.addEventListener("click", () => {
+        playRound(0, getComputerChoice());
+      });
+      paperButton.addEventListener("click", () => {
+        playRound(1, getComputerChoice());
+      });
+      scissorsButton.addEventListener("click", () => {
+        playRound(2, getComputerChoice());
+      });
     </script>
   </body>
 </html>
